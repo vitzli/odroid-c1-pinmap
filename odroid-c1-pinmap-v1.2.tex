@@ -1,0 +1,120 @@
+% \pdfoutput=1
+\documentclass[a4paper,12pt]{article}
+
+
+% -----------------------------------------------------------------------------
+
+\usepackage[english]{babel}
+\usepackage{lipsum}
+\usepackage{lettrine}
+\usepackage{fontspec}
+%\usepackage{microtype}
+\usepackage{nag}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+%\usepackage{amsmath,amsthm,amsfonts,amssymb}
+%\usepackage[a4paper,landscape,margin=1cm,footskip=.5cm]{geometry}
+\usepackage[landscape,a4paper,margin=1cm,footskip=.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{xstring}
+\usepackage{overpic}
+\usepackage{hyperref}
+\usepackage{pdfpages}
+%\usepackage[xindy,acronym,toc]{glossaries}
+%\usepackage[xindy]{imakeidx}
+%\usepackage{indentfirst}
+\usepackage{mathabx}
+%\usepackage{minted}
+
+
+
+% -----------------------------------------------------------------------------
+%\linespread{1.1}
+\defaultfontfeatures{Ligatures={TeX}}
+%\setmainfont{Linux Libertine O}
+\setmainfont{Linux Biolinum O}
+\setsansfont{Linux Biolinum O}
+\setmonofont[Scale=MatchLowercase]{DejaVu Sans Mono}
+\newcommand{\thistitle}{ODROID-C1 pin map, v1.2}
+\hypersetup{pdftitle={\thistitle},pdfauthor={aag@forum.odroid.com}}
+\frenchspacing
+
+\pagestyle{empty}
+\renewcommand{\arraystretch}{1.5}
+
+\newcommand{\clsat}{0.15}
+\newcommand{\clbright}{0.95}
+\newcommand{\clFsat}{0.85}
+\newcommand{\clFbri}{0.44}
+
+\definecolor{DarkRed}{RGB}{120,23,0}
+\definecolor{urlblue}{RGB}{124,211,228}
+\definecolor{codebg}{RGB}{254,253,242}
+\definecolor{headercolor}{RGB}{44,104,57}
+\definecolor{pwrcolor}{Hsb}{0,\clsat,\clbright}
+\definecolor{gpiocolor}{Hsb}{202,\clsat,\clbright}
+\definecolor{specialcolor}{Hsb}{130,\clsat,\clbright}
+\definecolor{clPWM}{Hsb}{34,\clFsat,\clFbri}
+\definecolor{clSPI}{Hsb}{180,\clFsat,\clFbri}
+\definecolor{clIIC}{Hsb}{333,\clFsat,\clFbri}
+
+\definecolor{madeby}{gray}{0.90}
+
+\newcommand{\tFPWM}[1]{\textcolor{clPWM}{#1}}
+\newcommand{\tFSPI}[1]{\textcolor{clSPI}{#1}}
+\newcommand{\tFIIC}[1]{\textcolor{clIIC}{#1}}
+\newcommand{\cheader}[1]{\sffamily\textbf{\textcolor{headercolor}{#1}}}
+\newcommand{\sepline}{\cline{1-5}\cline{8-12}}
+
+\newcommand{\cpwr}{\cellcolor{pwrcolor}}
+\newcommand{\cgpio}{\cellcolor{gpiocolor}}
+\newcommand{\cspc}{\cellcolor{specialcolor}}
+\newcommand{\tfl}{\textendash}
+% -----------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{center}
+\Huge{}\thistitle
+\end{center}
+
+\begin{center}
+\ttfamily
+%\scriptsize
+\begin{tabular}{ccccc|cc|ccccc}
+\hline
+\cheader{Wiring} & \cheader{Export} & \multicolumn{2}{c}{\cheader{ODROID-C1 pin}} & \cheader{Label} & \multicolumn{2}{|c|}{\cheader{Header}} & \cheader{Label} & \multicolumn{2}{c}{\cheader{ODROID-C1 pin}} & \cheader{Export} & \cheader{Wiring}\\
+\hline
+\hline
+ \tfl  & \tfl   &                 & \tfl           & 3V3   & \cpwr{}1      & \cpwr{}2     & 5V0   & \tfl           &                 & \tfl   & \tfl    \\
+ 8     & 74     &                 & \tFIIC{I2CA\_SDA}      & SDA1  & \cspc{}3      & \cpwr{}4     & 5V0   & \tfl           &                 & \tfl   & \tfl    \\
+ 9     & 75     &                 & \tFIIC{I2CA\_SCL}      & SCL1  & \cspc{}5      & \cpwr{}6     & GND   & \tfl           &                 & \tfl   & \tfl    \\
+ 7     & 83     & default w1      & GPIOY.BIT3     & \#83  & \cgpio{}7     & \cgpio{}8    & TXD1  & TXD\_B         &                 & 113    & \tfl    \\
+ \tfl  & \tfl   &                 & \tfl           & GND   & \cpwr{}9      & \cgpio{}10   & RXD1  & RXD\_B         &                 & 114    & \tfl    \\
+\sepline
+ 0     & 88     &                 & GPIOY.BIT8     & \#88  & \cgpio{}11    & \cgpio{}12   & \#87  & GPIOY.BIT7     &                 & 87     & 1     \\
+ 2     & 116    &                 & GPIOX.BIT19    & \#116 & \cgpio{}13    & \cpwr{}14    & GND   & \tfl           &                 & \tfl   & \tfl    \\
+ 3     & 115    &                 & GPIOX.BIT18    & \#115 & \cgpio{}15    & \cgpio{}16   & \#104 & GPIOX.BIT7     &                 & 104    & 4     \\
+ \tfl  & \tfl   &                 & \tfl           & 3V3   & \cpwr{}17     & \cgpio{}18   & \#102 & GPIOX.BIT5     &                 & 102    & 5     \\
+ 12    & 107    & \tFSPI{MOSI},\tFPWM{PWM1} & GPIOX.BIT10    & MOSI  & \cgpio{}19    & \cpwr{}20    & GND   & \tfl           &                 & \tfl   & \tfl    \\
+\sepline
+ 13    & 106    & \tFSPI{MISO}    & GPIOX.BIT9     & MISO  & \cgpio{}21    & \cgpio{}22   & \#103 & GPIOX.BIT6     &                 & 103    & 6     \\
+ 14    & 105    & \tFSPI{SCLK}    & GPIOX.BIT8     & SCLK  & \cgpio{}23    & \cgpio{}24   & CE0   & GPIOX.BIT20    & \tFSPI{CE0}     & 117    & 10    \\
+ \tfl  & \tfl   &                 & \tfl           & GND   & \cpwr{}25     & \cgpio{}26   & \#118 & GPIOX.BIT21    &                 & 118    & 11    \\
+ \tfl  & 76     &                 & \tFIIC{I2CB\_SDA}      & SDA2  & \cspc{}27     & \cspc{}28    & SCL2  & \tFIIC{I2CB\_SCL}      &                 & 77     & \tfl    \\
+ 21    & 101    &                 & GPIOX.BIT4     & \#101 & \cgpio{}29    & \cpwr{}30    & GND   & \tfl           &                 & \tfl   &       \\
+\sepline
+ 22    & 100    &                 & GPIOX.BIT3     & \#100 & \cgpio{}31    & \cgpio{}32   & \#99  & GPIOX.BIT2     &                 & 99     & 26    \\
+ 23    & 108    & \tFPWM{PWM0}    & GPIOX.BIT11    & \#108 & \cgpio{}33    & \cpwr{}34    & GND   & \tfl           &                 & \tfl   & \tfl    \\
+ 24    & 97     &                 & GPIOX.BIT0     & \#97  & \cgpio{}35    & \cgpio{}36   & \#98  & GPIOX.BIT1     &                 & 98     & 27    \\
+ \tfl  & \tfl   &                 & ADC.AIN1       & AIN1  & \cspc{}37     & \cpwr{}38    & 1V8   & 1V8            &                 & \tfl   & \tfl    \\
+ \tfl  & \tfl   &                 & \tfl           & GND   & \cpwr{}39     & \cspc{}40    & AIN0  & ADC.AIN0       &                 & \tfl   & \tfl    \\
+\hline
+\end{tabular}
+\end{center}
+
+{\scriptsize{}\textcolor{madeby}{by \texttt{\href{https://github.com/vitzli/odroid-c1-pinmap}{vitzli}}, cc-by-sa-3.0}}
+
+\end{document}
