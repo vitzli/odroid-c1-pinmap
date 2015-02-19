@@ -8,6 +8,11 @@ supports 1 Gb network interface, 4 USB ports (via port hub), 1 USB OTG port, RTC
 This document combines hardware description page from [Odroid wiki](http://odroid.com/dokuwiki/doku.php?id=en:c1_hardware)
 and pin layout page from [Hardkernel website](http://www.hardkernel.com/main/products/prdt_info.php?g_code=G141578608433&tab_idx=2)
 
+## Compiling
+
+Use lualatex to compile .tex file, this document requires *Linux Biolinum O* font.
+
+
 ## License
 
 **CC BY-SA 3.0**
