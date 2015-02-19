@@ -10,7 +10,7 @@ and pin layout page from [Hardkernel website](http://www.hardkernel.com/main/pro
 
 ## Compiling
 
-Use lualatex to compile .tex file, this document requires *Linux Biolinum O* font.
+Use lualatex to compile .tex file, this document requires *Linux Biolinum O* and *DejaVu Sans Mono* fonts.
 
 
 ## License
